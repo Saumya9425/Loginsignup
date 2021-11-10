@@ -1,11 +1,12 @@
 const express = require('express');
+const mongoose = require('./db/db')
 const app= express();
- 
-const userroute = require(/route/user);
-app.use('/user',(req,res,next) => {
-    res.status(200).json({
-        message: 'It works!'
-    });
-});
+app.use(express.json());
+const http = require('http');
+const port=3000;
+const userroute = require('./route/user');
+app.use(userroute);
 
-module.exports = app;
+const server=http.createServer(app);
+server.listen(port);
+console.log('connected');
