@@ -4,6 +4,19 @@ const express= require('express');
 const userModel = require('../model/userModel');
 const validator = require('email-validator');
 
+exports.getlsd=(req,res,next=>{
+    const email = req.body.email;
+    if(!validator.validate(email)){
+        return res.json('Invalid email');
+    }
+    const pass = req.body.pass;
+    userModel.findOne({email:email}).exec().then(result =>{
+        if(result)
+        return res.status(200).json({email:userModel[0].email});
+        else
+        return res.status(500).json('user does not exist');
+    })
+})
 exports.postlsd = async(req ,res ,next)=>{
     const email = req.body.email;
     if(!validator.validate(email)){
@@ -11,9 +24,9 @@ exports.postlsd = async(req ,res ,next)=>{
     }
     const pass = req.body.pass;
     const hpass = await bcrypt.hash(pass ,10);
-    userModel.findOne({email:email}).then(result =>{
+    userModel.findOne({email:email}).exec().then(result =>{
         if(result){
-            res.json('already exist')
+            res.json('already exist');
         }
         else{
             const add = new userModel({
