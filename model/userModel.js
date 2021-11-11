@@ -10,6 +10,9 @@ const user = mongoose.Schema({
     },
     name:{
         type:String
+    },
+    phone:{
+        type:Number
     }
-})
+});
 module.exports = mongoose.model('account',user);

@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('./db/db')
+const mongoose = require('./db/db');
 const app= express();
 app.use(express.json());
 const http = require('http');
